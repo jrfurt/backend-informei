@@ -4,6 +4,11 @@ const loginsController = require('./controllers/loginsController');
 const router = express.Router();
 
 router.get('/logins', loginsController.getAll);
+router.post('/login', loginsController.autentica);
+
+
+
+
 
 router.get('/', (req, res)=>{
     return res.json({ api: 'Api -Versão 1'})
