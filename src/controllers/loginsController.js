@@ -11,10 +11,10 @@ const autentica = async (req, res) => {
   const { nickname, senha } = req.body
 
   if (!nickname)
-    return res.json({ erro: true, message: "Nickname Obrigatório!" }).status(400)
+    return res.status(400).json({ erro: true, message: "Nickname Obrigatório!" })
 
   if (!senha)
-    return res.json({ erro: true, message: "Senha Obrigatório!" }).status(400)
+    return res.status(400).json({ erro: true, message: "Senha Obrigatório!" })
 
 
   const result = await loginsModel.autentica(nickname,senha)
@@ -24,7 +24,7 @@ const autentica = async (req, res) => {
   }
 
 
-  return res.json({ login: false, message: "Credenciais não encontrada!" }).status(400);
+  return res.status(400).json({ login: false, message: "Credenciais não encontrada!" });
 
 }
 
