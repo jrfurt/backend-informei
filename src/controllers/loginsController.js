@@ -6,6 +6,29 @@ const getAll = async (req, res) => {
 };
 
 
+const create = async (req, res) => {
+
+  const { nickname, senha } = req.body
+
+  if (!nickname)
+    return res.status(400).json({ erro: true, message: "Nickname Obrigatório!" })
+
+  if (!senha)
+    return res.status(400).json({ erro: true, message: "Senha Obrigatório!" })
+
+
+  const result = await loginsModel.create(nickname,senha)
+
+  if (result) {
+    return res.status(201).json({ login: true, message: "Credenciais criadas com sucesso" });
+  }
+
+
+  return res.status(400).json({ login: false, message: "Credenciais não criada!" });
+
+}
+
+
 const autentica = async (req, res) => {
 
   const { nickname, senha } = req.body
@@ -30,5 +53,6 @@ const autentica = async (req, res) => {
 
 module.exports = {
   getAll,
-  autentica
+  autentica,
+  create
 };
