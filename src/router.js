@@ -7,12 +7,8 @@ router.get('/logins', loginsController.getAll);
 router.post('/login', loginsController.autentica);
 router.post('/login/create', loginsController.create);
 
-
-
-
-
-router.get('/', (req, res)=>{
-    return res.json({ api: 'Api -Versão 1'})
+router.get('/', (req, res) => {
+  return res.json({ api: 'Api -Versão 1' });
 });
 
 module.exports = router;

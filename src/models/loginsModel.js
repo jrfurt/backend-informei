@@ -7,37 +7,39 @@ const getAll = async () => {
 };
 
 const autentica = async (nickname, senha) => {
-
-  const [row] = await connection.execute(`SELECT id, senha FROM logins WHERE nickname='${nickname}'`);
+  const [row] = await connection.execute(
+    `SELECT id, senha FROM logins WHERE nickname='${nickname}'`
+  );
 
   if (row.length) {
     const match = await bcrypt.compare(senha, row[0].senha);
 
-    if (match)
-      return true
+    if (match) return true;
   }
 
-  return false
-
-}
+  return false;
+};
 
 const create = async (nickname, senha) => {
   const saltRounds = 10;
 
-  const cryptoSenha = await bcrypt.hash(senha, saltRounds)
+  const cryptoSenha = await bcrypt.hash(senha, saltRounds);
 
-  const [row] = await connection.execute(`INSERT INTO logins (nickname, senha) values ('${nickname}','${cryptoSenha}')`);
+  const [row] = await connection.execute(
+    `INSERT INTO logins (nickname, senha) values ('${nickname}','${cryptoSenha}')`
+  );
 
-  console.log(row)
+  console.log(row);
 
-  if (row)
-    return true
+  if (row) {
+    return true;
+  }
 
-  return false
-}
+  return false;
+};
 
 module.exports = {
   getAll,
   autentica,
-  create
+  create,
 };
