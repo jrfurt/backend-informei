@@ -2,20 +2,24 @@ const connection = require('../database/connection');
 const bcrypt = require('bcrypt');
 
 const getAll = async () => {
-  const [logins] = await connection.execute(`SELECT * FROM logins;`);
+  const [logins] = await connection.execute(`SELECT email, senha FROM mei;`);
   return logins;
 };
 
-const autentica = async (nickname, senha) => {
+const autentica = async (email, senha) => {
   const [row] = await connection.execute(
-    `SELECT id, senha FROM logins WHERE nickname='${nickname}'`
+    `SELECT id_mei, senha FROM mei WHERE email='${email}'`
   );
 
   if (row.length) {
-    const match = await bcrypt.compare(senha, row[0].senha);
-
-    if (match) return true;
+    return true
   }
+
+  // if (row.length) {
+  //   const match = await bcrypt.compare(senha, row[0].senha);
+
+  //   if (match) return true;
+  // }
 
   return false;
 };
