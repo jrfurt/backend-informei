@@ -1,14 +1,12 @@
 const mysql = require('mysql2/promise');
 const path = require('path');
-require('dotenv').config({ path: path.resolve(__dirname, '../', '.env') });
-
-console.log(`hello, ${process.env.HELLO}`)
+require('dotenv').config({ path: path.resolve(__dirname, '../../', '.env') });
 
 const connection = mysql.createPool({
-  host: 'localhost',
-  user: 'root',
-  password: '1997',
-  database: 'informei_db',
+  host: process.env.HOST,
+  user: process.env.USER,
+  password: process.env.PASSWORD,
+  database: process.env.DATABASE,
 });
 
 module.exports = connection;
