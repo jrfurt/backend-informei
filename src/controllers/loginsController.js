@@ -30,19 +30,15 @@ const autentica = async (req, res) => {
 };
 
 const create = async (req, res) => {
-  const { nickname, senha } = req.body;
+  const { nome, cnpj, rua, numero, bairro, cidade, uf, telefone, email, senha } = req.body;
 
-  if (!nickname) {
+  if (!nome || !cnpj || !rua || !numero || !bairro || !cidade || !uf || !telefone || !email || !senha) {
     return res
       .status(400)
-      .json({ erro: true, message: 'Nickname obrigatório!' });
+      .json({ erro: true, message: 'Todos os campos são obrigatórios' });
   }
 
-  if (!senha) {
-    return res.status(400).json({ erro: true, message: 'Senha obrigatório!' });
-  }
-
-  const result = await loginsModel.create(nickname, senha);
+  const result = await loginsModel.create(nome, cnpj, rua, numero, bairro, cidade, uf, telefone, email, senha);
 
   if (result) {
     return res
