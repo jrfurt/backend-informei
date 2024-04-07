@@ -24,13 +24,13 @@ const autentica = async (email, senha) => {
   return false;
 };
 
-const create = async (nickname, senha) => {
+const create = async (nome, cnpj, rua, numero, bairro, cidade, uf, telefone, email, senha) => {
   const saltRounds = 10;
 
   const cryptoSenha = await bcrypt.hash(senha, saltRounds);
 
   const [row] = await connection.execute(
-    `INSERT INTO logins (nickname, senha) values ('${nickname}','${cryptoSenha}')`
+    `INSERT INTO mei (nome, cnpj, rua, numero, bairro, cidade, uf, telefone, email, senha) values ('${nome}', '${cnpj}', '${rua}', '${numero}', '${bairro}', '${cidade}', '${uf}', '${telefone}','${email}','${cryptoSenha}')`
   );
 
   console.log(row);
