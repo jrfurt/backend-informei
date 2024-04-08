@@ -9,9 +9,7 @@ const autentica = async (req, res) => {
   const { email, senha } = req.body;
 
   if (!email) {
-    return res
-      .status(400)
-      .json({ erro: true, message: 'E-mail obrigatório!' });
+    return res.status(400).json({ erro: true, message: 'E-mail obrigatório!' });
   }
 
   if (!senha) {
@@ -30,15 +28,48 @@ const autentica = async (req, res) => {
 };
 
 const create = async (req, res) => {
-  const { nome, cnpj, rua, numero, bairro, cidade, uf, telefone, email, senha } = req.body;
+  const {
+    nome,
+    cnpj,
+    rua,
+    numero,
+    bairro,
+    cidade,
+    uf,
+    telefone,
+    email,
+    senha,
+  } = req.body;
 
-  if (!nome || !cnpj || !rua || !numero || !bairro || !cidade || !uf || !telefone || !email || !senha) {
+  if (
+    !nome ||
+    !cnpj ||
+    !rua ||
+    !numero ||
+    !bairro ||
+    !cidade ||
+    !uf ||
+    !telefone ||
+    !email ||
+    !senha
+  ) {
     return res
       .status(400)
       .json({ erro: true, message: 'Todos os campos são obrigatórios' });
   }
 
-  const result = await loginsModel.create(nome, cnpj, rua, numero, bairro, cidade, uf, telefone, email, senha);
+  const result = await loginsModel.create(
+    nome,
+    cnpj,
+    rua,
+    numero,
+    bairro,
+    cidade,
+    uf,
+    telefone,
+    email,
+    senha
+  );
 
   if (result) {
     return res
@@ -51,8 +82,20 @@ const create = async (req, res) => {
     .json({ login: false, message: 'Credenciais não criadas!' });
 };
 
+const deleteMei = async (req, res) => {
+  const { id } = req.params;
+  const result = await loginsModel.deleteMei(id);
+
+  if (result) {
+    return res.status(200).json({ message: 'Dados do usuário apagados!' });
+  }
+
+  return res.status(400).json({ message: 'Não foi possível apagar dados' });
+};
+
 module.exports = {
   getAll,
   autentica,
   create,
+  deleteMei,
 };
