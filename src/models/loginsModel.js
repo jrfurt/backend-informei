@@ -12,7 +12,7 @@ const autentica = async (email, senha) => {
   );
 
   if (row.length) {
-    return true
+    return true;
   }
 
   // if (row.length) {
@@ -24,13 +24,27 @@ const autentica = async (email, senha) => {
   return false;
 };
 
-const create = async (nome, cnpj, rua, numero, bairro, cidade, uf, telefone, email, senha) => {
+const create = async (
+  nome,
+  cnpj,
+  rua,
+  numero,
+  bairro,
+  cidade,
+  uf,
+  telefone,
+  email,
+  senha
+) => {
   const saltRounds = 10;
 
   const cryptoSenha = await bcrypt.hash(senha, saltRounds);
 
   const [row] = await connection.execute(
-    `INSERT INTO mei (nome, cnpj, rua, numero, bairro, cidade, uf, telefone, email, senha) values ('${nome}', '${cnpj}', '${rua}', '${numero}', '${bairro}', '${cidade}', '${uf}', '${telefone}','${email}','${cryptoSenha}')`
+    `INSERT INTO mei 
+      (nome, cnpj, rua, numero, bairro, cidade, uf, telefone, email, senha) 
+    VALUES 
+      ('${nome}', '${cnpj}', '${rua}', '${numero}', '${bairro}', '${cidade}', '${uf}', '${telefone}','${email}','${cryptoSenha}')`
   );
 
   if (row) {
@@ -40,8 +54,19 @@ const create = async (nome, cnpj, rua, numero, bairro, cidade, uf, telefone, ema
   return false;
 };
 
+const deleteMei = async (id) => {
+  const [{ affectedRows }] = await connection.execute(
+    `DELETE FROM mei WHERE id_mei = ${id}`
+  );
+  if (affectedRows) {
+    return true;
+  }
+  return false;
+};
+
 module.exports = {
   getAll,
   autentica,
   create,
+  deleteMei,
 };
