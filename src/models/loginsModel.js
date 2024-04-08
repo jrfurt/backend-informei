@@ -33,8 +33,6 @@ const create = async (nome, cnpj, rua, numero, bairro, cidade, uf, telefone, ema
     `INSERT INTO mei (nome, cnpj, rua, numero, bairro, cidade, uf, telefone, email, senha) values ('${nome}', '${cnpj}', '${rua}', '${numero}', '${bairro}', '${cidade}', '${uf}', '${telefone}','${email}','${cryptoSenha}')`
   );
 
-  console.log(row);
-
   if (row) {
     return true;
   }
