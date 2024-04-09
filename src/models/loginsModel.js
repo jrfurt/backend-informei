@@ -54,6 +54,33 @@ const create = async (
   return false;
 };
 
+const updateMei = async (
+  id,
+  nome,
+  cnpj,
+  rua,
+  numero,
+  bairro,
+  cidade,
+  uf,
+  telefone,
+  email,
+  senha
+) => {
+  const [row] = await connection.execute(
+    `UPDATE mei 
+    SET nome = '${nome}', cnpj = '${cnpj}', rua = '${rua}', numero = '${numero}', bairro = '${bairro}', cidade = '${cidade}', uf = '${uf}', telefone = '${telefone}', email = '${email}', senha = '${senha}' WHERE id_mei = ${id}`
+  );
+
+  console.log(row);
+
+  if (row) {
+    return true;
+  }
+
+  return false;
+};
+
 const deleteMei = async (id) => {
   const [{ affectedRows }] = await connection.execute(
     `DELETE FROM mei WHERE id_mei = ${id}`
@@ -68,5 +95,6 @@ module.exports = {
   getAll,
   autentica,
   create,
+  updateMei,
   deleteMei,
 };
