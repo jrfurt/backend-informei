@@ -97,23 +97,6 @@ const updateMei = async (req, res) => {
     senha,
   } = req.body;
 
-  if (
-    !nome ||
-    !cnpj ||
-    !rua ||
-    !numero ||
-    !bairro ||
-    !cidade ||
-    !uf ||
-    !telefone ||
-    !email ||
-    !senha
-  ) {
-    return res
-      .status(400)
-      .json({ erro: true, message: 'Todos os campos são obrigatórios' });
-  }
-
   const result = await loginsModel.updateMei(
     id,
     nome,

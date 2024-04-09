@@ -67,14 +67,14 @@ const updateMei = async (
   email,
   senha
 ) => {
-  const [row] = await connection.execute(
-    `UPDATE mei 
-    SET nome = '${nome}', cnpj = '${cnpj}', rua = '${rua}', numero = '${numero}', bairro = '${bairro}', cidade = '${cidade}', uf = '${uf}', telefone = '${telefone}', email = '${email}', senha = '${senha}' WHERE id_mei = ${id}`
-  );
+  const sql = `UPDATE mei SET ${nome? "nome = '" + nome + "' " : ''} ${cnpj? "cnpj = '" + cnpj + "' " : ''} ${rua? "rua = '" + rua + "' " : ''} ${numero? "numero = '" + numero + "' " : ''} ${bairro? "bairro = '" + bairro + "' " : ''} ${cidade? "cidade = '" + cidade + "' " : ''} ${uf? "uf = '" + uf + "' " : ''} ${telefone? "telefone = '" + telefone + "' " : ''} ${email? "email = '" + email + "' " : ''} ${senha? "senha = '" + senha + "' " : ''} WHERE id_mei = ${id}`
 
+  const [{ affectedRows }] = await connection.execute(sql);
+
+  console.log(sql);
   console.log(row);
 
-  if (row) {
+  if (affectedRows) {
     return true;
   }
 
