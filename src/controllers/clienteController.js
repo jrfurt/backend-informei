@@ -83,10 +83,46 @@ const getAll = async (req, res) => {
       .json({ login: false, message: 'Credenciais não criadas!' });
   };
 
-
+  const updateCliente = async (req, res) => {
+    const { id } = req.params;
+    const {
+      nome,
+      sobrenome,
+      rua,
+      numero,
+      bairro,
+      cidade,
+      uf,
+      telefone,
+      email,
+      senha,
+    } = req.body;
+  
+    const result = await clienteModel.updateCliente(
+      id,
+      nome,
+      sobrenome,
+      rua,
+      numero,
+      bairro,
+      cidade,
+      uf,
+      telefone,
+      email,
+      senha
+    );
+  
+    if (result) {
+      return res.status(200).json({ message: 'Dados do usuário atualizados!' });
+    }
+  
+    return res.status(400).json({ message: 'Não foi possível atualizar dados' });
+  };
+  
 
 module.exports = {
     getAll,
     autentica,
-    create
+    create,
+    updateCliente
 }

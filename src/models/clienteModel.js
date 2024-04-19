@@ -54,9 +54,33 @@ const create = async (
   return false;
 };
 
+const updateCliente = async (
+  id,
+  nome,
+  sobrenome,
+  rua,
+  numero,
+  bairro,
+  cidade,
+  uf,
+  telefone,
+  email,
+  senha
+) => {
+  const sql = `UPDATE cliente SET ${nome? "nome = '" + nome + "' " : ''} ${sobrenome? "sobrenome = '" + sobrenome + "' " : ''} ${rua? "rua = '" + rua + "' " : ''} ${numero? "numero = '" + numero + "' " : ''} ${bairro? "bairro = '" + bairro + "' " : ''} ${cidade? "cidade = '" + cidade + "' " : ''} ${uf? "uf = '" + uf + "' " : ''} ${telefone? "telefone = '" + telefone + "' " : ''} ${email? "email = '" + email + "' " : ''} ${senha? "senha = '" + senha + "' " : ''} WHERE id_cliente = ${id}`
+
+  const [{ affectedRows }] = await connection.execute(sql);
+
+  if (affectedRows) {
+    return true;
+  }
+
+  return false;
+};
 
 module.exports = {
     getAll,
     autentica,
-    create
+    create,
+    updateCliente
 }

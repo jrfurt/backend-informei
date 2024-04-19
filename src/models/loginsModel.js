@@ -71,9 +71,6 @@ const updateMei = async (
 
   const [{ affectedRows }] = await connection.execute(sql);
 
-  console.log(sql);
-  console.log(row);
-
   if (affectedRows) {
     return true;
   }
