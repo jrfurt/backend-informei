@@ -67,7 +67,7 @@ const updateCliente = async (
   email,
   senha
 ) => {
-  const sql = `UPDATE cliente SET ${nome? "nome = '" + nome + "' " : ''} ${sobrenome? "sobrenome = '" + sobrenome + "' " : ''} ${rua? "rua = '" + rua + "' " : ''} ${numero? "numero = '" + numero + "' " : ''} ${bairro? "bairro = '" + bairro + "' " : ''} ${cidade? "cidade = '" + cidade + "' " : ''} ${uf? "uf = '" + uf + "' " : ''} ${telefone? "telefone = '" + telefone + "' " : ''} ${email? "email = '" + email + "' " : ''} ${senha? "senha = '" + senha + "' " : ''} WHERE id_cliente = ${id}`
+  const sql = `UPDATE cliente SET ${nome ? "nome = '" + nome + "' " : ''} ${sobrenome ? "sobrenome = '" + sobrenome + "' " : ''} ${rua ? "rua = '" + rua + "' " : ''} ${numero ? "numero = '" + numero + "' " : ''} ${bairro ? "bairro = '" + bairro + "' " : ''} ${cidade ? "cidade = '" + cidade + "' " : ''} ${uf ? "uf = '" + uf + "' " : ''} ${telefone ? "telefone = '" + telefone + "' " : ''} ${email ? "email = '" + email + "' " : ''} ${senha ? "senha = '" + senha + "' " : ''} WHERE id_cliente = ${id}`
 
   const [{ affectedRows }] = await connection.execute(sql);
 
@@ -77,10 +77,20 @@ const updateCliente = async (
 
   return false;
 };
+const deleteCliente = async (id) => {
+  const [{ affectedRows }] = await connection.execute(
+    `DELETE FROM cliente WHERE id_cliente = ${id}`
+  );
+  if (affectedRows) {
+    return true;
+  }
+  return false;
+};
 
 module.exports = {
-    getAll,
-    autentica,
-    create,
-    updateCliente
+  getAll,
+  autentica,
+  create,
+  updateCliente,
+  deleteCliente
 }
