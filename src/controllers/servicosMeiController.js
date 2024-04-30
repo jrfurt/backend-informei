@@ -26,7 +26,14 @@ const create = async (req, res) => {
   return res.status(400).json({ message: 'Serviço não criado!' });
 };
 
+// TO DO
+const updateServicoMei = (req, res) => {};
+
+// TO DO
+const deleteServicoMei = (req, res) => {};
+
 module.exports = {
   getAll,
   create,
+  updateServicoMei,
 };
