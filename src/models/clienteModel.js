@@ -8,18 +8,14 @@ const getAll = async () => {
 
 const autentica = async (email, senha) => {
   const [row] = await connection.execute(
-    `SELECT id_cliente, senha FROM cliente WHERE email='${email}'`
+    `SELECT id_cliente, senha FROM cliente WHERE email='${email}' AND senha='${senha}'`
   );
 
   if (row.length) {
-    return true;
+    const match = await bcrypt.compare(senha, row[0].senha);
+
+    if (match) return true;
   }
-
-  // if (row.length) {
-  //   const match = await bcrypt.compare(senha, row[0].senha);
-
-  //   if (match) return true;
-  // }
 
   return false;
 };

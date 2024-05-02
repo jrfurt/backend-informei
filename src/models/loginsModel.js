@@ -8,18 +8,14 @@ const getAll = async () => {
 
 const autentica = async (email, senha) => {
   const [row] = await connection.execute(
-    `SELECT id_mei, senha FROM mei WHERE email='${email}'`
+    `SELECT id_mei, senha FROM mei WHERE email='${email}' AND senha='${senha}'`
   );
 
   if (row.length) {
-    return true;
+    const match = bcrypt.compare(senha, row[0].senha);
+
+    if (match) return true;
   }
-
-  // if (row.length) {
-  //   const match = await bcrypt.compare(senha, row[0].senha);
-
-  //   if (match) return true;
-  // }
 
   return false;
 };
@@ -67,7 +63,17 @@ const updateMei = async (
   email,
   senha
 ) => {
-  const sql = `UPDATE mei SET ${nome ? "nome = '" + nome + "' " : ''} ${cnpj ? "cnpj = '" + cnpj + "' " : ''} ${rua ? "rua = '" + rua + "' " : ''} ${numero ? "numero = '" + numero + "' " : ''} ${bairro ? "bairro = '" + bairro + "' " : ''} ${cidade ? "cidade = '" + cidade + "' " : ''} ${uf ? "uf = '" + uf + "' " : ''} ${telefone ? "telefone = '" + telefone + "' " : ''} ${email ? "email = '" + email + "' " : ''} ${senha ? "senha = '" + senha + "' " : ''} WHERE id_mei = ${id}`
+  const sql = `UPDATE mei SET ${nome ? "nome = '" + nome + "' " : ''} ${
+    cnpj ? "cnpj = '" + cnpj + "' " : ''
+  } ${rua ? "rua = '" + rua + "' " : ''} ${
+    numero ? "numero = '" + numero + "' " : ''
+  } ${bairro ? "bairro = '" + bairro + "' " : ''} ${
+    cidade ? "cidade = '" + cidade + "' " : ''
+  } ${uf ? "uf = '" + uf + "' " : ''} ${
+    telefone ? "telefone = '" + telefone + "' " : ''
+  } ${email ? "email = '" + email + "' " : ''} ${
+    senha ? "senha = '" + senha + "' " : ''
+  } WHERE id_mei = ${id}`;
 
   const [{ affectedRows }] = await connection.execute(sql);
 
