@@ -1,25 +1,21 @@
-const connection = require('../database/connection')
+const connection = require('../database/connection');
 const bcrypt = require('bcrypt');
 
 const getAll = async () => {
-  const [cliente] = await connection.execute(`SELECT email, senha FROM cliente;`);
+  const [cliente] = await connection.execute(`SELECT * FROM cliente;`);
   return cliente;
 };
 
 const autentica = async (email, senha) => {
   const [row] = await connection.execute(
-    `SELECT id_cliente, senha FROM cliente WHERE email='${email}'`
+    `SELECT id_cliente FROM cliente WHERE email='${email}' AND senha='${senha}'`
   );
 
   if (row.length) {
-    return true;
+    const match = await bcrypt.compare(senha, row[0].senha);
+
+    if (match) return row;
   }
-
-  // if (row.length) {
-  //   const match = await bcrypt.compare(senha, row[0].senha);
-
-  //   if (match) return true;
-  // }
 
   return false;
 };
@@ -67,7 +63,17 @@ const updateCliente = async (
   email,
   senha
 ) => {
-  const sql = `UPDATE cliente SET ${nome ? "nome = '" + nome + "' " : ''} ${sobrenome ? "sobrenome = '" + sobrenome + "' " : ''} ${rua ? "rua = '" + rua + "' " : ''} ${numero ? "numero = '" + numero + "' " : ''} ${bairro ? "bairro = '" + bairro + "' " : ''} ${cidade ? "cidade = '" + cidade + "' " : ''} ${uf ? "uf = '" + uf + "' " : ''} ${telefone ? "telefone = '" + telefone + "' " : ''} ${email ? "email = '" + email + "' " : ''} ${senha ? "senha = '" + senha + "' " : ''} WHERE id_cliente = ${id}`
+  const sql = `UPDATE cliente SET ${nome ? "nome = '" + nome + "' " : ''} ${
+    sobrenome ? "sobrenome = '" + sobrenome + "' " : ''
+  } ${rua ? "rua = '" + rua + "' " : ''} ${
+    numero ? "numero = '" + numero + "' " : ''
+  } ${bairro ? "bairro = '" + bairro + "' " : ''} ${
+    cidade ? "cidade = '" + cidade + "' " : ''
+  } ${uf ? "uf = '" + uf + "' " : ''} ${
+    telefone ? "telefone = '" + telefone + "' " : ''
+  } ${email ? "email = '" + email + "' " : ''} ${
+    senha ? "senha = '" + senha + "' " : ''
+  } WHERE id_cliente = ${id}`;
 
   const [{ affectedRows }] = await connection.execute(sql);
 
@@ -92,5 +98,5 @@ module.exports = {
   autentica,
   create,
   updateCliente,
-  deleteCliente
-}
+  deleteCliente,
+};
