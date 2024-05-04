@@ -19,7 +19,11 @@ const autentica = async (req, res) => {
   const result = await loginsModel.autentica(email, senha);
 
   if (result) {
-    return res.json({ login: true, message: 'Login realizado com sucesso' });
+    return res.json({
+      login: true,
+      user: result[0].id_mei,
+      message: 'Login realizado com sucesso',
+    });
   }
 
   return res
