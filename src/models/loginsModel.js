@@ -1,5 +1,4 @@
 const connection = require('../database/connection');
-const bcrypt = require('bcrypt');
 
 const getAll = async () => {
   const [logins] = await connection.execute(`SELECT email, senha FROM mei;`);
