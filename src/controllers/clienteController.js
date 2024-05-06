@@ -1,4 +1,4 @@
-const clienteModel = require('../models/clienteModel')
+const clienteModel = require('../models/clienteModel');
 
 const getAll = async (req, res) => {
   const cliente = await clienteModel.getAll();
@@ -19,14 +19,17 @@ const autentica = async (req, res) => {
   const result = await clienteModel.autentica(email, senha);
 
   if (result) {
-    return res.json({ login: true, message: 'Login realizado com sucesso' });
+    return res.json({
+      login: true,
+      user: result,
+      message: 'Login realizado com sucesso',
+    });
   }
 
   return res
     .status(400)
     .json({ login: false, message: 'Credenciais não encontradas!' });
 };
-
 
 const create = async (req, res) => {
   const {
@@ -135,5 +138,5 @@ module.exports = {
   autentica,
   create,
   updateCliente,
-  deleteCliente
-}
+  deleteCliente,
+};

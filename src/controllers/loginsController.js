@@ -19,7 +19,11 @@ const autentica = async (req, res) => {
   const result = await loginsModel.autentica(email, senha);
 
   if (result) {
-    return res.json({ login: true, message: 'Login realizado com sucesso' });
+    return res.json({
+      login: true,
+      user: result[0].id_mei,
+      message: 'Login realizado com sucesso',
+    });
   }
 
   return res
@@ -74,7 +78,11 @@ const create = async (req, res) => {
   if (result) {
     return res
       .status(201)
-      .json({ login: true, message: 'Credenciais criadas com sucesso' });
+      .json({
+        login: true,
+        user: result.insertId,
+        message: 'Credenciais criadas com sucesso',
+      });
   }
 
   return res
