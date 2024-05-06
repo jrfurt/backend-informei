@@ -26,12 +26,15 @@ const create = async (req, res) => {
   return res.status(400).json({ message: 'Serviço não criado!' });
 };
 
-// TO DO
 const updateServicoMei = async (req, res) => {
   const { id_servico } = req.params;
   const { nome_servico, valor } = req.body;
 
-  const result = await servicosMeiModel.updateServicoMei(id_servico, nome_servico, valor);
+  const result = await servicosMeiModel.updateServicoMei(
+    id_servico,
+    nome_servico,
+    valor
+  );
 
   if (result) {
     return res.status(200).json({ message: 'Dados do serviço atualizados!' });
@@ -40,11 +43,20 @@ const updateServicoMei = async (req, res) => {
   return res.status(400).json({ message: 'Não foi possível atualizar dados' });
 };
 
-// TO DO
-const deleteServicoMei = (req, res) => {};
+const deleteServicoMei = async (req, res) => {
+  const { id_servico } = req.params;
+  const result = await servicosMeiModel.deleteServicoMei(id_servico);
+
+  if (result) {
+    return res.status(200).json({ message: 'Serviço deletado!' });
+  }
+
+  return res.status(400).json({ message: 'Não foi possível deletar serviço' });
+};
 
 module.exports = {
   getAll,
   create,
   updateServicoMei,
+  deleteServicoMei,
 };
