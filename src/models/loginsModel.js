@@ -1,5 +1,4 @@
 const connection = require('../database/connection');
-const bcrypt = require('bcrypt');
 
 const getAll = async () => {
   const [logins] = await connection.execute(`SELECT email, senha FROM mei;`);
@@ -8,13 +7,11 @@ const getAll = async () => {
 
 const autentica = async (email, senha) => {
   const [row] = await connection.execute(
-    `SELECT id_mei FROM mei WHERE email='${email}' AND senha='${senha}'`
+    `SELECT id_mei, senha FROM mei WHERE email='${email}' AND senha='${senha}'`
   );
 
   if (row.length) {
-    const match = bcrypt.compare(senha, row[0].senha);
-
-    if (match) return row;
+    return row;
   }
 
   return false;
@@ -32,19 +29,19 @@ const create = async (
   email,
   senha
 ) => {
-  const saltRounds = 10;
+  // const saltRounds = 10;
 
-  const cryptoSenha = await bcrypt.hash(senha, saltRounds);
+  // const cryptoSenha = await bcrypt.hash(senha, saltRounds);
 
   const [row] = await connection.execute(
     `INSERT INTO mei 
       (nome, cnpj, rua, numero, bairro, cidade, uf, telefone, email, senha) 
     VALUES 
-      ('${nome}', '${cnpj}', '${rua}', '${numero}', '${bairro}', '${cidade}', '${uf}', '${telefone}','${email}','${cryptoSenha}')`
+      ('${nome}', '${cnpj}', '${rua}', '${numero}', '${bairro}', '${cidade}', '${uf}', '${telefone}','${email}','${senha}')`
   );
 
   if (row) {
-    return true;
+    return row;
   }
 
   return false;
