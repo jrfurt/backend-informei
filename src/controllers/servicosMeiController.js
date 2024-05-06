@@ -27,7 +27,18 @@ const create = async (req, res) => {
 };
 
 // TO DO
-const updateServicoMei = (req, res) => {};
+const updateServicoMei = async (req, res) => {
+  const { id_servico } = req.params;
+  const { nome_servico, valor } = req.body;
+
+  const result = await servicosMeiModel.updateServicoMei(id_servico, nome_servico, valor);
+
+  if (result) {
+    return res.status(200).json({ message: 'Dados do serviço atualizados!' });
+  }
+
+  return res.status(400).json({ message: 'Não foi possível atualizar dados' });
+};
 
 // TO DO
 const deleteServicoMei = (req, res) => {};

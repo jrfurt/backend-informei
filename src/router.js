@@ -23,6 +23,6 @@ router.delete('/clientes/delete/:id', clienteController.deleteCliente);
 
 router.get('/servicos', servicosMeiController.getAll);
 router.post('/servico/create', servicosMeiController.create);
-router.put('/servicos/update/:id', servicosMeiController.updateServicoMei);
+router.put('/servicos/update/:id_servico', servicosMeiController.updateServicoMei);
 
 module.exports = router;
