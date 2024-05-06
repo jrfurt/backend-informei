@@ -29,11 +29,19 @@ const updateServicoMei = async (id_servico, nome_servico, valor) => {
   return false;
 };
 
-// TO DO
-const deleteServicoMei = () => {};
+const deleteServicoMei = async (id_servico) => {
+  const [{ affectedRows }] = await connection.execute(
+    `DELETE FROM servico WHERE id_servico = ${id_servico}`
+  );
+  if (affectedRows) {
+    return true;
+  }
+  return false;
+};
 
 module.exports = {
   getAll,
   create,
   updateServicoMei,
+  deleteServicoMei,
 };
