@@ -41,7 +41,7 @@ const create = async (
   );
 
   if (row) {
-    return true;
+    return row;
   }
 
   return false;

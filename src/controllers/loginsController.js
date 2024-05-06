@@ -78,7 +78,11 @@ const create = async (req, res) => {
   if (result) {
     return res
       .status(201)
-      .json({ login: true, message: 'Credenciais criadas com sucesso' });
+      .json({
+        login: true,
+        user: result.insertId,
+        message: 'Credenciais criadas com sucesso',
+      });
   }
 
   return res
