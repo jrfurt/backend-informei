@@ -6,10 +6,7 @@ const getAll = async (req, res) => {
 };
 
 const create = async (req, res) => {
-  const { nome_servico, valor } = req.body;
-
-  // temporário!!!
-  const id_mei = 3;
+  const { nome_servico, valor, id_mei } = req.body;
 
   if (!nome_servico || !valor) {
     return res
