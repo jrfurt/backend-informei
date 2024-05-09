@@ -14,7 +14,7 @@ const create = async (nome, email, telefone) => {
   );
 
   if (row) {
-    return true;
+    return row.insertId;
   }
 
   return false;

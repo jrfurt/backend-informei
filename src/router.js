@@ -2,6 +2,7 @@ const express = require('express');
 const loginsController = require('./controllers/loginsController');
 const clienteController = require('./controllers/clienteController');
 const servicosMeiController = require('./controllers/servicosMeiController');
+const agendamentoController = require('./controllers/agendamentoController');
 
 const router = express.Router();
 
@@ -22,7 +23,15 @@ router.delete('/clientes/delete/:id', clienteController.deleteCliente);
 
 router.get('/servicos', servicosMeiController.getAll);
 router.post('/servico/create', servicosMeiController.create);
-router.put('/servicos/update/:id_servico', servicosMeiController.updateServicoMei);
-router.delete('/servicos/delete/:id_servico', servicosMeiController.deleteServicoMei);
+router.put(
+  '/servicos/update/:id_servico',
+  servicosMeiController.updateServicoMei
+);
+router.delete(
+  '/servicos/delete/:id_servico',
+  servicosMeiController.deleteServicoMei
+);
+
+router.post('/agendamento/create', agendamentoController.create);
 
 module.exports = router;
