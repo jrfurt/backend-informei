@@ -22,9 +22,7 @@ const create = async (nome, email, telefone) => {
 
 const updateCliente = async (id, nome, email, telefone) => {
   const sql = `UPDATE cliente SET 
-    ${nome ? "nome = '" + nome + "' " : ''} ${
-    telefone ? "telefone = '" + telefone + "' " : ''
-  } ${email ? "email = '" + email + "' " : ''} WHERE id_cliente = ${id}`;
+    ${nome ? "nome = '" + nome + "' " : ''} ${email ? "email = '" + email + "' " : ''} ${telefone ? "telefone = '" + telefone + "' " : ''}  WHERE id_cliente = ${id}`;
 
   const [{ affectedRows }] = await connection.execute(sql);
 
