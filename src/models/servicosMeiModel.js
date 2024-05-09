@@ -7,6 +7,11 @@ const getAll = async () => {
   return servicos;
 };
 
+const getCategoria = async () => {
+  const [categorias] = await connection.execute(`SELECT * FROM categoria`);
+  return categorias;
+};
+
 const create = async (nome_servico, valor, id_mei) => {
   const [row] = await connection.execute(
     `INSERT INTO servico (nome_servico, valor, id_mei) VALUES ('${nome_servico}', '${valor}', '${id_mei}');`
