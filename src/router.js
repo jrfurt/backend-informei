@@ -16,7 +16,6 @@ router.put('/login/update/:id', loginsController.updateMei);
 router.delete('/login/delete/:id', loginsController.deleteMei);
 
 router.get('/clientes', clienteController.getAll);
-router.post('/clientes', clienteController.autentica);
 router.post('/clientes/create', clienteController.create);
 router.put('/clientes/update/:id', clienteController.updateCliente);
 router.delete('/clientes/delete/:id', clienteController.deleteCliente);

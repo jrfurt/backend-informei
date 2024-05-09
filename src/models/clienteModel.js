@@ -1,46 +1,16 @@
 const connection = require('../database/connection');
-const bcrypt = require('bcrypt');
 
 const getAll = async () => {
   const [cliente] = await connection.execute(`SELECT * FROM cliente;`);
   return cliente;
 };
 
-const autentica = async (email, senha) => {
-  const [row] = await connection.execute(
-    `SELECT id_cliente FROM cliente WHERE email='${email}' AND senha='${senha}'`
-  );
-
-  if (row.length) {
-    const match = await bcrypt.compare(senha, row[0].senha);
-
-    if (match) return row;
-  }
-
-  return false;
-};
-
-const create = async (
-  nome,
-  sobrenome,
-  rua,
-  numero,
-  bairro,
-  cidade,
-  uf,
-  telefone,
-  email,
-  senha
-) => {
-  const saltRounds = 10;
-
-  const cryptoSenha = await bcrypt.hash(senha, saltRounds);
-
+const create = async (nome, email, telefone) => {
   const [row] = await connection.execute(
     `INSERT INTO cliente 
-      (nome, sobrenome, rua, numero, bairro, cidade, uf, telefone, email, senha) 
+      (nome, email, telefone)
     VALUES 
-      ('${nome}', '${sobrenome}', '${rua}', '${numero}', '${bairro}', '${cidade}', '${uf}', '${telefone}','${email}','${cryptoSenha}')`
+      ('${nome}', '${email}', '${telefone}')`
   );
 
   if (row) {
@@ -50,30 +20,9 @@ const create = async (
   return false;
 };
 
-const updateCliente = async (
-  id,
-  nome,
-  sobrenome,
-  rua,
-  numero,
-  bairro,
-  cidade,
-  uf,
-  telefone,
-  email,
-  senha
-) => {
-  const sql = `UPDATE cliente SET ${nome ? "nome = '" + nome + "' " : ''} ${
-    sobrenome ? "sobrenome = '" + sobrenome + "' " : ''
-  } ${rua ? "rua = '" + rua + "' " : ''} ${
-    numero ? "numero = '" + numero + "' " : ''
-  } ${bairro ? "bairro = '" + bairro + "' " : ''} ${
-    cidade ? "cidade = '" + cidade + "' " : ''
-  } ${uf ? "uf = '" + uf + "' " : ''} ${
-    telefone ? "telefone = '" + telefone + "' " : ''
-  } ${email ? "email = '" + email + "' " : ''} ${
-    senha ? "senha = '" + senha + "' " : ''
-  } WHERE id_cliente = ${id}`;
+const updateCliente = async (id, nome, email, telefone) => {
+  const sql = `UPDATE cliente SET 
+    ${nome ? "nome = '" + nome + "' " : ''} ${email ? "email = '" + email + "' " : ''} ${telefone ? "telefone = '" + telefone + "' " : ''}  WHERE id_cliente = ${id}`;
 
   const [{ affectedRows }] = await connection.execute(sql);
 
@@ -95,7 +44,6 @@ const deleteCliente = async (id) => {
 
 module.exports = {
   getAll,
-  autentica,
   create,
   updateCliente,
   deleteCliente,
