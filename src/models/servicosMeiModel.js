@@ -7,7 +7,7 @@ const getAll = async () => {
   return servicos;
 };
 
-const getCategorias = async () => {
+const getCategoria = async () => {
   const [categorias] = await connection.execute(`SELECT * FROM categoria`);
   return categorias;
 };
@@ -46,7 +46,7 @@ const deleteServicoMei = async (id_servico) => {
 
 module.exports = {
   getAll,
-  getCategorias,
+  getCategoria,
   create,
   updateServicoMei,
   deleteServicoMei,

@@ -5,6 +5,11 @@ const getAll = async (req, res) => {
   return res.status(200).json(servicos);
 };
 
+const getCategoria = async (req, res) => {
+  const categorias = await servicosMeiModel.getCategoria();
+  return res.status(200).json(categorias);
+};
+
 const create = async (req, res) => {
   const { nome_servico, valor, id_mei } = req.body;
 
@@ -53,6 +58,7 @@ const deleteServicoMei = async (req, res) => {
 
 module.exports = {
   getAll,
+  getCategoria,
   create,
   updateServicoMei,
   deleteServicoMei,
