@@ -46,6 +46,7 @@ const deleteServicoMei = async (id_servico) => {
 
 module.exports = {
   getAll,
+  getCategoria,
   create,
   updateServicoMei,
   deleteServicoMei,
