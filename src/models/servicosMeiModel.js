@@ -12,6 +12,12 @@ const getCategoria = async () => {
   return categorias;
 };
 
+const getServicoByCategoria = async (id_categoria) => {
+  console.log(id_categoria)
+  const [servicos] = await connection.execute(`SELECT * FROM servico WHERE id_categoria = ${id_categoria};`);
+  return servicos;
+}
+
 const create = async (nome_servico, valor, id_mei, id_categoria) => {
   const [row] = await connection.execute(
     `INSERT INTO servico (nome_servico, valor, id_mei, id_categoria) VALUES ('${nome_servico}', '${valor}', '${id_mei}','${id_categoria}');`
@@ -46,6 +52,7 @@ const deleteServicoMei = async (id_servico) => {
 module.exports = {
   getAll,
   getCategoria,
+  getServicoByCategoria,
   create,
   updateServicoMei,
   deleteServicoMei,
