@@ -12,21 +12,20 @@ const getCategoria = async () => {
   return categorias;
 };
 
-const create = async (nome_servico, valor, id_mei) => {
+const create = async (nome_servico, valor, id_mei, id_categoria) => {
   const [row] = await connection.execute(
-    `INSERT INTO servico (nome_servico, valor, id_mei) VALUES ('${nome_servico}', '${valor}', '${id_mei}');`
+    `INSERT INTO servico (nome_servico, valor, id_mei, id_categoria) VALUES ('${nome_servico}', '${valor}', '${id_mei}','${id_categoria}');`
   );
 
   if (row) return true;
   return false;
 };
 
-const updateServicoMei = async (id_servico, nome_servico, valor) => {
-  const sql = `UPDATE servico SET ${
-    nome_servico ? "nome_servico = '" + nome_servico + "' " : ''
-  } ${
-    valor ? "valor = '" + valor + "' " : ''
-  } WHERE id_servico = ${id_servico}`;
+const updateServicoMei = async (id_servico, nome_servico, valor, id_categoria) => {
+  const sql = `UPDATE servico SET ${nome_servico ? "nome_servico = '" + nome_servico + "' " : ''
+    } ${valor ? "valor = '" + valor + "' " : ''
+    } ${id_categoria ? "id_categoria = '" + id_categoria + "' " : ''
+    } WHERE id_servico = ${id_servico}`;
 
   const [{ affectedRows }] = await connection.execute(sql);
 
