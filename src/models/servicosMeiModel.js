@@ -13,7 +13,7 @@ const getCategoria = async () => {
 };
 
 const getServicoByCategoria = async (id_categoria) => {
-  console.log(id_categoria)
+  console.log(id_categoria, 'model')
   const [servicos] = await connection.execute(`SELECT * FROM servico WHERE id_categoria = ${id_categoria};`);
   return servicos;
 }

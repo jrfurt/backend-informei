@@ -34,6 +34,7 @@ router.delete(
   servicosMeiController.deleteServicoMei
 );
 
+router.get('/agendamentos', agendamentoController.getAll);
 router.post('/agendamento/create', agendamentoController.create);
 
 module.exports = router;

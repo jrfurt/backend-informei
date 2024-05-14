@@ -1,5 +1,10 @@
-const agendamentoModel = require('../models/agendamentoModal');
-const clienteModel = require('../models/clienteModel')
+const agendamentoModel = require('../models/agendamentoModel');
+const clienteModel = require('../models/clienteModel');
+
+const getAll = async (req, res) => {
+  const agendamentos = await agendamentoModel.getAll();
+  return res.status(200).json(agendamentos);
+};
 
 const create = async (req, res) => {
   const { nome, email, telefone, data, id_servico } = req.body;
@@ -31,5 +36,6 @@ const create = async (req, res) => {
 };
 
 module.exports = {
-  create
-}
+  getAll,
+  create,
+};

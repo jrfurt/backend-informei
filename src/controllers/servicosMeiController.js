@@ -11,11 +11,11 @@ const getCategoria = async (req, res) => {
 };
 
 const getServicoByCategoria = async (req, res) => {
-  const {id_categoria} = req.query;
-  console.log(id_categoria)
+  const { id_categoria } = req.query;
+  console.log(id_categoria, 'controller');
   const categorias = await servicosMeiModel.getServicoByCategoria(id_categoria);
-  return res.status(200).json(categorias)
-}
+  return res.status(200).json(categorias);
+};
 
 const create = async (req, res) => {
   const { nome_servico, valor, id_mei, id_categoria } = req.body;
@@ -26,7 +26,12 @@ const create = async (req, res) => {
       .json({ erro: true, message: 'Todos os campos são obrigatórios' });
   }
 
-  const result = await servicosMeiModel.create(nome_servico, valor, id_mei, id_categoria);
+  const result = await servicosMeiModel.create(
+    nome_servico,
+    valor,
+    id_mei,
+    id_categoria
+  );
 
   if (result) {
     return res.status(201).json({ message: 'Serviço criado com sucesso' });
