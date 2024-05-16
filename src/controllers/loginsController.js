@@ -5,6 +5,12 @@ const getAll = async (req, res) => {
   res.status(200).json(logins);
 };
 
+const getMeiById = async (req, res) => {
+  const { id_mei } = req.query;
+  const mei = await loginsModel.getMeiById(id_mei);
+  return res.status(200).json(mei);
+};
+
 const autentica = async (req, res) => {
   const { email, senha } = req.body;
 
@@ -137,6 +143,7 @@ const deleteMei = async (req, res) => {
 
 module.exports = {
   getAll,
+  getMeiById,
   autentica,
   create,
   updateMei,

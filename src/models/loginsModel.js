@@ -5,6 +5,11 @@ const getAll = async () => {
   return logins;
 };
 
+const getMeiById = async (id_mei) => {
+  const [mei] = await connection.execute(`SELECT nome FROM mei WHERE id_mei = ${id_mei}`);
+  return mei[0].nome;
+}
+
 const autentica = async (email, senha) => {
   const [row] = await connection.execute(
     `SELECT id_mei, senha FROM mei WHERE email='${email}' AND senha='${senha}'`
@@ -89,6 +94,7 @@ const deleteMei = async (id) => {
 
 module.exports = {
   getAll,
+  getMeiById,
   autentica,
   create,
   updateMei,
