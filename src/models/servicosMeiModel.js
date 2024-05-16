@@ -13,10 +13,11 @@ const getCategoria = async () => {
 };
 
 const getServicoByCategoria = async (id_categoria) => {
-  console.log(id_categoria, 'model')
-  const [servicos] = await connection.execute(`SELECT * FROM servico WHERE id_categoria = ${id_categoria};`);
+  const [servicos] = await connection.execute(
+    `SELECT * FROM servico WHERE id_categoria = ${id_categoria};`
+  );
   return servicos;
-}
+};
 
 const create = async (nome_servico, valor, id_mei, id_categoria) => {
   const [row] = await connection.execute(
@@ -27,11 +28,17 @@ const create = async (nome_servico, valor, id_mei, id_categoria) => {
   return false;
 };
 
-const updateServicoMei = async (id_servico, nome_servico, valor, id_categoria) => {
-  const sql = `UPDATE servico SET ${nome_servico ? "nome_servico = '" + nome_servico + "' " : ''
-    } ${valor ? "valor = '" + valor + "' " : ''
-    } ${id_categoria ? "id_categoria = '" + id_categoria + "' " : ''
-    } WHERE id_servico = ${id_servico}`;
+const updateServicoMei = async (
+  id_servico,
+  nome_servico,
+  valor,
+  id_categoria
+) => {
+  const sql = `UPDATE servico SET ${
+    nome_servico ? "nome_servico = '" + nome_servico + "' " : ''
+  } ${valor ? "valor = '" + valor + "' " : ''} ${
+    id_categoria ? "id_categoria = '" + id_categoria + "' " : ''
+  } WHERE id_servico = ${id_servico}`;
 
   const [{ affectedRows }] = await connection.execute(sql);
 

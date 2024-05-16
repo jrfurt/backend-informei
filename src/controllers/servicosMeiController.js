@@ -12,7 +12,6 @@ const getCategoria = async (req, res) => {
 
 const getServicoByCategoria = async (req, res) => {
   const { id_categoria } = req.query;
-  console.log(id_categoria, 'controller');
   const categorias = await servicosMeiModel.getServicoByCategoria(id_categoria);
   return res.status(200).json(categorias);
 };
