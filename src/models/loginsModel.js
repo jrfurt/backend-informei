@@ -29,10 +29,6 @@ const create = async (
   email,
   senha
 ) => {
-  // const saltRounds = 10;
-
-  // const cryptoSenha = await bcrypt.hash(senha, saltRounds);
-
   const [row] = await connection.execute(
     `INSERT INTO mei 
       (nome, cnpj, rua, numero, bairro, cidade, uf, telefone, email, senha) 
