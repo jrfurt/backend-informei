@@ -11,6 +11,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/logins', loginsController.getAll);
+router.get('/login/getMeiId', loginsController.getMeiById);
 router.post('/login', loginsController.autentica);
 router.post('/login/create', loginsController.create);
 router.put('/login/update/:id', loginsController.updateMei);
